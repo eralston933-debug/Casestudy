@@ -10,10 +10,20 @@ library(forcats)
 library(vroom)
 library(shiny)
 
+dir.create("neiss")
+#> Warning in dir.create("neiss"): 'neiss' already exists
+download <- function(name) {
+  url <- "https://raw.github.com/hadley/mastering-shiny/main/neiss/"
+  download.file(paste0(url, name), paste0("neiss/", name), quiet = TRUE)
+}
+download("injuries.tsv.gz")
+download("population.tsv")
+download("products.tsv")
+
 if (!exists("injuries")) {
-  injuries <- vroom::vroom("injuries.tsv.gz")
-  products <- vroom::vroom("products.tsv")
-  population <- vroom::vroom("population.tsv")
+  injuries <- vroom::vroom("neiss/injuries.tsv.gz")
+  products <- vroom::vroom("neiss/products.tsv")
+  population <- vroom::vroom("neiss/population.tsv")
 }
 
 ui <- fluidPage(
@@ -93,3 +103,5 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
+rsconnect::deployApp(appDir = "C:/Users/erals/OneDrive - Western Washington University/Courses/599 App Development/Casestudy")
