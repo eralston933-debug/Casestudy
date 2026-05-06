@@ -104,4 +104,3 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 
-rsconnect::deployApp(appDir = "C:/Users/erals/OneDrive - Western Washington University/Courses/599 App Development/Casestudy")
